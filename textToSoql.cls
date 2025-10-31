@@ -1,7 +1,7 @@
 public class textToSoql {
     @AuraEnabled(cacheable=false)
     public static List<SObject> convertToSoql(String queryString){
-        String GEMINI_API_KEY = 'AIzaSyAUFAVWUVoKcqBnjcsDFCeFmomt13mF6P0';
+        String GEMINI_API_KEY = 'your api key';
 
         // Set up the endpoint
         String endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
