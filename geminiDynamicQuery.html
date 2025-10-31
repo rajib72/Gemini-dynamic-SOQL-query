@@ -1,0 +1,54 @@
+<template>
+    <lightning-card title="💫 Gemini Dynamic SOQL Runner" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-textarea 
+                label="Ask Gemini (e.g., 'Show top 5 closed won Opportunities')"
+                value={userInput}
+                onchange={handleChange}>
+            </lightning-textarea>
+
+            <div class="slds-m-top_medium">
+                <lightning-button 
+                    variant="brand"
+                    label="Run Query"
+                    onclick={handleSubmit}
+                    disabled={isLoading}>
+                </lightning-button>
+            </div>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-is-relative slds-m-around_medium">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={records.length}>
+            <div class="slds-m-around_medium">
+                <template for:each={records} for:item="rec">
+                    <div key={rec} class="slds-box slds-m-vertical_small slds-theme_default" style="display:flex;">
+                            <p>
+                                <strong>{rec}</strong>
+                            </p>
+                            <div class="slds-m-left_medium" style="cursor: pointer; position:flex-end;">
+                                <lightning-icon 
+                                  icon-name="utility:forward_up" 
+                                  alternative-text="Connected" 
+                                  size="medium" 
+                                  title="Navigate to record"
+                                  data-record={rec}
+                                  onclick={handleNavigate}
+                                ></lightning-icon>
+                            </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-m-around_medium slds-text-color_error">
+                {error}
+            </div>
+        </template>
+    </lightning-card>
+</template>
